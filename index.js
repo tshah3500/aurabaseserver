@@ -7,10 +7,14 @@ const { createClient } = require('@supabase/supabase-js');
 dotenv.config();
 
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors());
+app.use(cors({
+    origin: ['https://your-vercel-domain.vercel.app'], // add your Vercel frontend URL here
+    credentials: true
+  }));
 app.use(express.json());
 
 // Connect to Supabase
@@ -375,5 +379,5 @@ app.get('/', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on ${PORT}`);
 });
