@@ -24,7 +24,7 @@ const database = createClient(
 );
 
 app.post('/api/add-event', async (req, res) => {
-  const { name, auraPoints, description, groupName: submittedGroupName } = req.body; // name = nominee
+  const { name, userId, auraPoints, description, groupName: submittedGroupName } = req.body; // name = nominee
 
   console.log('Received request:', {
     name,
@@ -39,7 +39,7 @@ app.post('/api/add-event', async (req, res) => {
     const { data: nomineeUser, error: userError } = await database
       .from('users')
       .select('user_id, group_name, name')
-      .eq('name', name)
+      .eq('user_id', userId)
       .single();
 
     console.log('Found nominee data:', {
